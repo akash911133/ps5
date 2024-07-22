@@ -1,0 +1,43 @@
+scms:
+  setupgitscm:
+    kind: "github"
+    spec:
+      user: "akash911133"
+      owner: "akash911133"
+      repository: "ps5"
+      token: "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"
+      username: "akash911133"
+      branch: "main"
+      commitmessage:
+        type: "my-PRs"
+
+sources:
+  chartclusterautoscalersource:
+    kind: helmchart
+    pattern: "*"
+    spec:
+      name: cluster-autoscaler
+      url: https://kubernetes.github.io/autoscaler
+      version: latest
+
+actions:
+  action-tag:
+    kind: "github/pullrequest"
+    scmid: setupgitscm
+    target:
+      - chartclusterautoscalertarget
+    spec:
+      automerge: false
+      description: "Creating a pull request 1"
+      draft: true
+      title: "Update git_repo_scanner helm chart version"
+
+targets:
+  chartclusterautoscalertarget:
+    name: Update cluster-autoscaler version in input.tf
+    scmid: setupgitscm
+    kind: terraform/file
+    sourceid: chartclusterautoscalersource
+    spec:
+      file: templates/eks/input.tf
+      path: variable.CLUSTER_AUTOSCALER_HELM_CHART_VERSION.default
