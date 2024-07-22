@@ -21,7 +21,7 @@ sources:
       version: latest
 
 actions:
-  action-tag:
+  create_pull_request1:
     kind: "github/pullrequest"
     scmid: setupgitscm
     target:
@@ -34,7 +34,7 @@ actions:
 
 targets:
   chartclusterautoscalertarget:
-    name: Update cluster-autoscaler version in input.tf
+    name: cluster-autoscaler version in input.tf
     scmid: setupgitscm
     kind: terraform/file
     sourceid: chartclusterautoscalersource
